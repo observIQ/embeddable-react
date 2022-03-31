@@ -1,23 +1,27 @@
 import React, { useState } from "react";
+import { useCallback } from "react";
 import { useEffect } from "react";
 import { Todo } from "./Todo";
 
 export const Todos = () => {
   const [todos, setTodos] = useState([]);
 
+  const fetchTodos = useCallback(async () => {
+    const resp = await fetch("/api/todos");
+    const body = await resp.json();
+    const { todos } = body;
+
+    setTodos(todos);
+  }, [setTodos]);
+
   useEffect(() => {
-    async function fetchTodos() {
-      const resp = await fetch("/api/todos");
-      const body = await resp.json();
-      const { todos } = body;
-
-      setTodos(todos);
-    }
-
     fetchTodos();
-  }, []);
+  }, [fetchTodos]);
 
-  console.log({ todos });
+  function onDeleteSuccess() {
+    fetchTodos();
+  }
+
   return (
     <>
       <div className="todos-header">
@@ -26,7 +30,7 @@ export const Todos = () => {
       </div>
       <div className="todos">
         {todos.map((todo) => (
-          <Todo key={todo.id} todo={todo} />
+          <Todo key={todo.id} todo={todo} onDeleteSuccess={onDeleteSuccess} />
         ))}
       </div>
     </>

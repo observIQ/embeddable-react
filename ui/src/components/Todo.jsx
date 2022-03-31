@@ -16,6 +16,11 @@ export const Todo = (props) => {
     const { todo } = body;
     setCompleted(todo.completed);
   }
+
+  async function handleDelete(e) {
+    await fetch(`/api/todos/${props.todo.id}`, { method: "DELETE" });
+    props.onDeleteSuccess();
+  }
   return (
     <div className="todo">
       <input
@@ -24,7 +29,9 @@ export const Todo = (props) => {
         onChange={handleCheckClick}
       />
       <p>{props.todo.description}</p>
-      <button className="delete">Delete</button>
+      <button className="delete" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 };
