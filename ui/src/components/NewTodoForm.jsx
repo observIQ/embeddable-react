@@ -4,7 +4,9 @@ export const NewTodoInput = (props) => {
   const [showInput, setShowInput] = useState(false);
   const [value, setValue] = useState("");
 
-  async function handleSave() {
+  async function handleSave(e) {
+    e.preventDefault();
+
     const payload = {
       description: value,
     };
@@ -19,21 +21,28 @@ export const NewTodoInput = (props) => {
 
     props.onCreateSuccess(body.todo);
     setShowInput(false);
+    setValue("");
   }
 
   return showInput ? (
-    <div>
+    <form className="input-box">
       <input
+        className="todo-input"
+        autoFocus
         value={value}
         onChange={(e) => setValue(e.target.value)}
         type="text"
         placeholder="To do..."
       />
-      <button onClick={handleSave}>Save</button>
-    </div>
+      <button className="save-button" onClick={(e) => handleSave(e)}>
+        Save
+      </button>
+    </form>
   ) : (
-    <div>
-      <button onClick={() => setShowInput(true)}>New</button>
+    <div className="button-box">
+      <button className="new-button" onClick={() => setShowInput(true)}>
+        New
+      </button>
     </div>
   );
 };
