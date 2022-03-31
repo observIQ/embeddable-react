@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
+import { NewTodoInput } from "./NewTodoForm";
 import { Todo } from "./Todo";
 
 export const Todos = () => {
@@ -22,17 +23,19 @@ export const Todos = () => {
     fetchTodos();
   }
 
+  function onCreateSuccess(newTodo) {
+    setTodos([...todos, newTodo]);
+  }
+
   return (
     <>
-      <div className="todos-header">
-        <h3>To Do:</h3>
-        <button className="plus">+</button>
-      </div>
+      <h3>To Do:</h3>
       <div className="todos">
         {todos.map((todo) => (
           <Todo key={todo.id} todo={todo} onDeleteSuccess={onDeleteSuccess} />
         ))}
       </div>
+      <NewTodoInput onCreateSuccess={onCreateSuccess} />
     </>
   );
 };

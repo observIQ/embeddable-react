@@ -13,16 +13,6 @@ body {
   min-height: 80vh;
 }
 
-.todos {
-  display: flex;
-  flex-direction: column;
-}
-
-.todos-header {
-  display: flex;
-  align-items: center;
-}
-
 .plus {
   margin-left: auto;
 }

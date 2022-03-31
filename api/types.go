@@ -11,7 +11,7 @@ type CreatePayload struct {
 }
 
 type CreateResponse struct {
-	Todo todo
+	Todo todo `json:"todo"`
 }
 
 type CheckPayload struct {
