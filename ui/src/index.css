@@ -1,0 +1,13 @@
+body {
+  background-color: #c3c9d4;
+}
+
+.container {
+  border: 1px solid darkgray;
+  background-color: #fff;
+
+  margin: auto;
+
+  max-width: 600px;
+  min-height: 80vh;
+}
